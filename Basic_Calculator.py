@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 
 win = Tk() 
 win.geometry("312x330")  
@@ -15,7 +16,7 @@ def btn_click(item,text=None):
 
 # function for clear the input field
 def bt_clear(): 
-    global expression , out_expression
+    global expression 
     expression = "" 
     input_text.set("")
 
@@ -28,9 +29,13 @@ def bt_back():
 # to calculate the expression 
 def bt_equal():
     global expression
-    result = str(eval(expression))
-    input_text.set(result)
-    expression = result
+    try: 
+        result = str(eval(expression))
+    except:
+        messagebox.showerror("ERROR","Invaild Syntax")
+    else:
+        input_text.set(result)
+        expression = result
 
 # function for keyboard input
 def key_press(event):
