@@ -1,12 +1,16 @@
 from tkinter import *
 from tkinter import messagebox
 
-win = Tk() 
-win.geometry("312x330")  
-win.resizable(0, 0)  
-win.title("Calculator")
-win.iconbitmap('cal logo.ico')
-win.configure(background="white")
+
+# making a class for the buttons
+class button:
+    
+    def __init__(self, text, row, column):
+        self.text = text
+        self.row = row
+        self.column = column
+        self.button = Button(btns_frame, text = self.text, fg = "white", width = 10, height = 3, bd = 0, bg = "black", cursor = "hand2", command = lambda: btn_click(self.text)).grid(row = self.row, column = self.column, padx = 1, pady = 1)
+
 
 # function for input button
 def btn_click(item,text=None):
@@ -14,17 +18,20 @@ def btn_click(item,text=None):
     expression = expression + str(item)
     input_text.set(expression)
 
+
 # function for clear the input field
 def bt_clear(): 
     global expression 
     expression = "" 
     input_text.set("")
 
+
 #function for backspace
 def bt_back():
     global expression
     expression = expression[:-1]
     input_text.set(expression)
+
 
 # to calculate the expression 
 def bt_equal():
@@ -36,6 +43,7 @@ def bt_equal():
     else:
         input_text.set(result)
         expression = result
+
 
 # function for keyboard input
 def key_press(event):
@@ -53,6 +61,7 @@ def key_press(event):
     else:
         btn_click(event.char)
 
+
 # binding the keys to the function
 def bind_keys():
     for i in range(40,58):
@@ -64,17 +73,16 @@ def bind_keys():
     
     # win.bind("<Key>",key_press)
 
-# making a class for the buttons
-class button:
-    
-    def __init__(self, text, row, column):
-        self.text = text
-        self.row = row
-        self.column = column
-        self.button = Button(btns_frame, text = self.text, fg = "white", width = 10, height = 3, bd = 0, bg = "black", cursor = "hand2", command = lambda: btn_click(self.text)).grid(row = self.row, column = self.column, padx = 1, pady = 1)
+
+# main() function--------------------------------
+win = Tk() 
+win.geometry("312x330")  
+win.resizable(0, 0)  
+win.title("Calculator")
+win.iconbitmap('cal logo.ico')
+win.configure(background="white")
 
 expression = ""
- 
 input_text = StringVar()
 bind_keys()
  
